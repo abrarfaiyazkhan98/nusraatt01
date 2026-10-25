@@ -28,10 +28,15 @@
   --animate-sway: sway 5s ease-in-out infinite;
   --animate-spin-slow: spin 7s linear infinite;
   --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+  --animate-float-shadow: float-shadow 6s ease-in-out infinite;
 
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
+  }
+  @keyframes float-shadow {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(0.82); opacity: 0.65; }
   }
   @keyframes sway {
     0%, 100% { transform: rotate(var(--r, 0deg)) translateY(0); }
@@ -230,6 +235,14 @@
 }
 .heart-particle {
   animation: heart-rise var(--dur, 2.2s) var(--ease-soft) forwards;
+}
+
+/* hero mascot: a soft warm shadow, and the library's frame hidden while an idle mood shows */
+.mascot-shadow {
+  background: radial-gradient(closest-side, rgb(111 85 84 / 0.22), rgb(111 85 84 / 0.08) 60%, transparent);
+}
+[data-mascot-idle] > button > span > span {
+  opacity: 0 !important;
 }
 
 /* ───────────────────────── reduced motion ───────────────────────── */

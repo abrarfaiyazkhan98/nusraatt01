@@ -47,3 +47,6 @@ next-env.d.ts
 *.ARW
 *.DNG
 /originals
+
+# page-mascot source sheets and reference photos (built atlases live in public/mascots)
+/characters/

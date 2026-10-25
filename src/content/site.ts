@@ -26,7 +26,7 @@ export const site = {
       src: "/images/portrait.webp",
       alt: "Nusraat smiling in a butter-yellow dress, standing against a sunlit cream wall",
     },
-    // things the little speech bubble says when you poke the photo
+    // things the little speech bubble says when you boop the mascot
     messages: [
       "hello there! ♡",
       "you found me!",

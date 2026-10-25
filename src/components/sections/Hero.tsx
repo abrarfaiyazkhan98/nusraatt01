@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowDown, BookHeart } from "lucide-react";
 import { site } from "@/content/site";
-import { Portrait } from "../Portrait";
+import { HeroMascot } from "../HeroMascot";
 
 export function Hero() {
   const { hero } = site;
@@ -11,9 +11,9 @@ export function Hero() {
   return (
     <section id="top" aria-labelledby="hero-title" className="relative overflow-x-clip pt-10 pb-16 sm:pt-16 sm:pb-24">
       <div className="container-soft flex flex-col items-center text-center">
-        <Portrait src={hero.portrait.src} alt={hero.portrait.alt} messages={hero.messages} name={site.name} />
+        <HeroMascot messages={hero.messages} name={site.name} />
         <p aria-hidden className="mt-5 font-hand text-xl text-cocoa-soft/80 sm:mt-6">
-          psst — poke the photo ♡
+          psst — boop her ♡
         </p>
 
         <h1 id="hero-title" className="mt-6 text-[2.6rem] leading-[1.05] font-black tracking-[-0.03em] text-cocoa sm:text-7xl">
