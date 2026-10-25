@@ -1,0 +1,302 @@
+@import "tailwindcss";
+
+/* ───────────────────────── design tokens ───────────────────────── */
+@theme {
+  --color-pink: #f8dde5;
+  --color-butter: #fff0b8;
+  --color-cream: #fffcf7;
+  --color-blush: #efafc2;
+  --color-blush-deep: #d9849d; /* decorative only (hearts, seals) */
+  --color-rose: #a34a63; /* accent text — 5.6:1 on white */
+  --color-cocoa: #6f5554;
+  --color-cocoa-soft: #846867; /* muted text — 4.9:1 on cream */
+  --color-cocoa-deep: #5a4342; /* text on blush — 5:1 */
+  --color-lavender: #ede4fa;
+  --color-paper: #ffffff;
+
+  --font-sans: var(--font-nunito), ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
+  --font-hand: var(--font-caveat), "Bradley Hand", "Segoe Print", cursive;
+
+  --shadow-soft: 0 1px 2px rgb(111 85 84 / 0.05), 0 12px 32px -14px rgb(111 85 84 / 0.22);
+  --shadow-lift: 0 2px 4px rgb(111 85 84 / 0.06), 0 22px 44px -16px rgb(111 85 84 / 0.3);
+  --shadow-sticker: 0 1px 1px rgb(111 85 84 / 0.08), 0 6px 14px -6px rgb(111 85 84 / 0.25);
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-sway: sway 5s ease-in-out infinite;
+  --animate-spin-slow: spin 7s linear infinite;
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes sway {
+    0%, 100% { transform: rotate(var(--r, 0deg)) translateY(0); }
+    50% { transform: rotate(calc(var(--r, 0deg) + 4deg)) translateY(-3px); }
+  }
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 1; }
+  }
+}
+
+/* ───────────────────────── base ───────────────────────── */
+@layer base {
+  :root {
+    color-scheme: light;
+    --dot: rgb(111 85 84 / 0.12);
+    --dot-gap: 22px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-cream font-sans text-cocoa antialiased;
+    /* delicate dotted grid — a single 1px dot per cell, identical on every screen */
+    background-image: radial-gradient(circle at 1px 1px, var(--dot) 1px, transparent 1.25px);
+    background-size: var(--dot-gap) var(--dot-gap);
+    background-position: 10px 10px;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  @media (min-width: 768px) {
+    :root { --dot-gap: 26px; }
+  }
+
+  ::selection {
+    background: var(--color-butter);
+    color: var(--color-cocoa-deep);
+  }
+
+  :focus-visible {
+    outline: 2.5px solid var(--color-cocoa);
+    outline-offset: 3px;
+    border-radius: 12px;
+  }
+
+  h1, h2, h3 {
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+  p { text-wrap: pretty; }
+}
+
+/* ───────────────────────── components ───────────────────────── */
+@layer components {
+  .container-soft {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .card {
+    @apply rounded-[28px] bg-paper/80 shadow-[var(--shadow-soft)] ring-1 ring-cocoa/5 backdrop-blur-[2px];
+  }
+
+  .section {
+    @apply py-20 sm:py-28;
+  }
+
+  /* buttons */
+  .btn {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-[0.98rem] font-bold select-none;
+    transition: transform 0.35s var(--ease-bounce), box-shadow 0.35s var(--ease-soft), background-color 0.25s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0) scale(0.97); transition-duration: 0.1s; }
+  .btn-primary {
+    @apply bg-cocoa text-cream shadow-[var(--shadow-soft)];
+  }
+  .btn-primary:hover { @apply bg-cocoa-deep shadow-[var(--shadow-lift)]; }
+  .btn-soft {
+    @apply bg-paper text-cocoa ring-1 ring-cocoa/15 shadow-[var(--shadow-sticker)];
+  }
+  .btn-soft:hover { @apply bg-pink/60 ring-blush; }
+
+  /* animated underline */
+  .link-soft, .prose-diary a {
+    @apply relative font-semibold text-cocoa;
+    background-image: linear-gradient(var(--color-blush), var(--color-blush));
+    background-size: 0% 2px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.4s var(--ease-soft);
+    padding-bottom: 2px;
+  }
+  .link-soft:hover, .link-soft:focus-visible,
+  .prose-diary a:hover, .prose-diary a:focus-visible { background-size: 100% 2px; }
+
+  /* washi tape strip */
+  .tape {
+    @apply pointer-events-none absolute h-6 w-20 opacity-90;
+    background:
+      repeating-linear-gradient(45deg, rgb(255 255 255 / 0.35) 0 6px, transparent 6px 12px),
+      var(--tape, var(--color-butter));
+    box-shadow: 0 1px 2px rgb(111 85 84 / 0.1);
+  }
+
+  /* little sticker */
+  .sticker {
+    @apply inline-grid place-items-center rounded-full bg-paper shadow-[var(--shadow-sticker)] ring-1 ring-cocoa/5;
+  }
+
+  /* diary prose */
+  .prose-diary {
+    @apply text-[1.075rem] leading-[1.85] text-cocoa;
+  }
+  .prose-diary > * + * { margin-top: 1.15em; }
+  .prose-diary h2 { @apply mt-10 font-hand text-[2rem] leading-tight text-cocoa; }
+  .prose-diary h3 { @apply mt-8 text-lg font-extrabold; }
+  .prose-diary em { @apply text-cocoa-soft; }
+  .prose-diary strong { @apply font-extrabold text-cocoa-deep; }
+  .prose-diary ul, .prose-diary ol { @apply space-y-2 pl-6; }
+  .prose-diary ul { list-style: none; }
+  .prose-diary ul > li { position: relative; }
+  .prose-diary ul > li::before {
+    content: "♡";
+    position: absolute;
+    left: -1.4em;
+    color: var(--color-blush-deep);
+    font-size: 0.85em;
+    top: 0.15em;
+  }
+  .prose-diary ol { list-style: decimal; }
+  .prose-diary ol > li::marker { @apply font-bold text-rose; }
+  .prose-diary blockquote {
+    @apply my-8 rounded-2xl bg-butter/70 px-6 py-4 font-hand text-[1.6rem] leading-snug text-cocoa-deep;
+    rotate: -0.6deg;
+  }
+  .prose-diary hr { @apply my-10 border-0 text-center; }
+  .prose-diary hr::after { content: "♡ ♡ ♡"; @apply text-blush-deep tracking-[0.6em]; }
+}
+
+/* ───────────────────────── reveal on scroll ───────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.9s var(--ease-soft), transform 0.9s var(--ease-soft);
+  transition-delay: var(--delay, 0ms);
+}
+.reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* page transition */
+.page-enter {
+  animation: page-enter 0.7s var(--ease-soft) both;
+}
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* soft image fade-in once decoded */
+.img-fade {
+  opacity: 0;
+  filter: blur(6px);
+  transition: opacity 0.8s var(--ease-soft), filter 0.8s var(--ease-soft);
+}
+.img-fade[data-loaded="true"] {
+  opacity: 1;
+  filter: none;
+}
+
+/* organic portrait blob */
+.blob {
+  border-radius: 58% 42% 52% 48% / 48% 54% 46% 52%;
+  animation: blob-morph 14s ease-in-out infinite;
+}
+@keyframes blob-morph {
+  0%, 100% { border-radius: 58% 42% 52% 48% / 48% 54% 46% 52%; }
+  33% { border-radius: 46% 54% 44% 56% / 56% 44% 56% 44%; }
+  66% { border-radius: 53% 47% 58% 42% / 44% 52% 48% 56%; }
+}
+
+/* heart particles */
+@keyframes heart-rise {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.4) rotate(0deg); }
+  15% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx, 0px), -120px) scale(1) rotate(var(--rot, 12deg)); }
+}
+.heart-particle {
+  animation: heart-rise var(--dur, 2.2s) var(--ease-soft) forwards;
+}
+
+/* ───────────────────────── reduced motion ───────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+  .img-fade { opacity: 1; filter: none; }
+}
+
+/* ───────────────────────── form fields ───────────────────────── */
+@layer components {
+  .input {
+    @apply w-full rounded-2xl bg-cream px-4 py-3 text-base text-cocoa ring-1 ring-cocoa/15 placeholder:text-cocoa-soft/70;
+    transition: box-shadow 0.25s, background-color 0.25s;
+  }
+  .input:hover { @apply ring-cocoa/30; }
+  .input:focus-visible {
+    @apply bg-paper ring-2 ring-cocoa;
+    outline: none;
+    box-shadow: 0 0 0 6px rgb(239 175 194 / 0.35);
+  }
+  .input[aria-invalid="true"] { @apply ring-2 ring-rose; }
+  .input-lined {
+    line-height: 28px;
+    background-image: repeating-linear-gradient(transparent 0 27px, rgb(239 175 194 / 0.4) 27px 28px);
+    background-attachment: local;
+    background-position: 0 11px;
+  }
+}
+
+/* ───────────────────────── lightbox ───────────────────────── */
+.lightbox[open] { animation: fade-in 0.35s var(--ease-soft); }
+.lightbox[open]::backdrop { animation: fade-in 0.35s var(--ease-soft); }
+.lightbox-photo { animation: photo-in 0.5s var(--ease-soft); }
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes photo-in { from { opacity: 0; transform: translateY(12px) scale(0.97); } }
+.lightbox-btn {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  background: rgb(255 252 247 / 0.95);
+  color: var(--color-cocoa);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s var(--ease-bounce), background-color 0.2s;
+}
+.lightbox-btn:hover { background: var(--color-pink); }
+.lightbox-btn:active { transform: scale(0.94); }
+.lightbox :focus-visible { outline-color: var(--color-cream); }
+
+/* ───────────────────────── music bits ───────────────────────── */
+.vinyl {
+  background:
+    radial-gradient(circle, var(--color-cream) 0 3%, var(--color-blush) 3.5% 17%, #4a3838 17.5% 19%, transparent 19.5%),
+    conic-gradient(from 30deg, transparent 0 20%, rgb(255 255 255 / 0.08) 25% 30%, transparent 35% 70%, rgb(255 255 255 / 0.06) 75% 80%, transparent 85%),
+    repeating-radial-gradient(circle, #4f3d3c 0 1.5px, #433332 1.5px 3.5px);
+  box-shadow: var(--shadow-lift);
+}
+.reel {
+  background:
+    radial-gradient(circle, var(--color-cocoa) 0 22%, transparent 24%),
+    conic-gradient(var(--color-paper) 0 25%, var(--color-pink) 0 50%, var(--color-paper) 0 75%, var(--color-pink) 0);
+}
+html:has(dialog[open]) { overflow: hidden; }
