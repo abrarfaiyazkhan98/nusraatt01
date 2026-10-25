@@ -130,14 +130,20 @@ export function ChibiMascot({ name, messages }: { name: string; messages: readon
             <ellipse cx="75" cy="171" rx="12" ry="19" fill="#F8D5C4" stroke="#9C7366" strokeWidth="2" />
             <ellipse cx="225" cy="171" rx="12" ry="19" fill="#F8D5C4" stroke="#9C7366" strokeWidth="2" />
             <path d="M69 130 Q69 61 148 65 Q229 63 232 136 Q209 128 191 96 Q160 129 109 117 Q89 142 69 130Z" fill="url(#nusraat-hair)" stroke="#69493D" strokeWidth="2.5" />
-            <path d="M90 104 Q124 66 167 81 M151 79 Q193 88 210 117" stroke="#B88A72" strokeWidth="3" fill="none" opacity=".65" />
+            <path d="M90 104 Q124 66 167 81 M151 79 Q193 88 210 117 M78 143 Q89 113 110 103 M215 108 Q233 146 218 181 M83 187 Q74 223 95 249 M211 186 Q229 223 206 255" stroke="#B88A72" strokeWidth="3" fill="none" opacity=".65" />
+            <path d="M76 178 Q54 222 89 274 M220 177 Q250 233 213 279" fill="none" stroke="#775044" strokeWidth="11" strokeLinecap="round" opacity=".85"/>
+            <path d="M72 190 Q61 228 90 264 M224 193 Q239 233 211 269" fill="none" stroke="#BC8B73" strokeWidth="3" opacity=".8"/>
             <ellipse cx="98" cy="194" rx="20" ry="10" fill="#EF9FAA" opacity=".55" />
             <ellipse cx="203" cy="194" rx="20" ry="10" fill="#EF9FAA" opacity=".55" />
             {eye(113)}{eye(187)}
             <path d="M148 188 Q150 191 152 188" stroke="#C68B7C" strokeWidth="2" fill="none" strokeLinecap="round" />
             <path d={reaction ? "M139 210 Q150 224 161 210" : "M141 210 Q150 217 159 210"} stroke="#A76769" strokeWidth="2.7" fill="none" strokeLinecap="round" />
           </g>
+          <path d="M93 276 Q69 256 88 227 L106 208 Q123 204 126 221 L119 252 Q117 267 104 280" fill="#F3BBD0" stroke="#D58DA6" strokeWidth="3"/>
+          <ellipse cx="112" cy="215" rx="15" ry="20" fill="#F9D8C8" stroke="#B98577" strokeWidth="2" transform="rotate(-22 112 215)"/>
           <path d="M91 255 Q64 252 76 276 Q89 293 118 270" fill="#F4C4D4" stroke="#D58DA6" strokeWidth="3" />
+          <path d="M207 276 Q233 256 214 227 L196 208 Q179 204 176 221 L183 252 Q185 267 198 280" fill="#F3BBD0" stroke="#D58DA6" strokeWidth="3"/>
+          <ellipse cx="190" cy="215" rx="15" ry="20" fill="#F9D8C8" stroke="#B98577" strokeWidth="2" transform="rotate(22 190 215)"/>
           <path d="M208 255 Q236 251 225 277 Q211 293 181 270" fill="#F4C4D4" stroke="#D58DA6" strokeWidth="3" />
           <path d="M104 265 Q118 258 132 269 M170 269 Q184 257 199 265" stroke="#D58DA6" strokeWidth="2" fill="none" />
           <text x="43" y="110" fontSize="23" fill="#EFAFC2">♡</text>
